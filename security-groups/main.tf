@@ -2,7 +2,7 @@
 resource "aws_security_group" "eice_security_group" {
   name        = "${var.environment}-${var.project_name}-eice-sg"
   description = "Outbound SSH to VPC CIDR"
-  vpc_id      = 
+  vpc_id      = var.vpc_id
 
   egress {
     from_port   = 22
@@ -20,7 +20,7 @@ resource "aws_security_group" "eice_security_group" {
 resource "aws_security_group" "alb_security_group" {
   name        = "${var.environment}-${var.project_name}-alb-sg"
   description = "HTTP/HTTPS from internet"
-  vpc_id      = 
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "HTTP"
@@ -54,7 +54,7 @@ resource "aws_security_group" "alb_security_group" {
 resource "aws_security_group" "app_server_security_group" {
   name        = "${var.environment}-${var.project_name}-web-sg"
   description = "HTTP/HTTPS from ALB, SSH from EICE"
-  vpc_id      = 
+  vpc_id      = var.vpc_id
 
   ingress {
     description     = "SSH from EICE"
@@ -96,7 +96,7 @@ resource "aws_security_group" "app_server_security_group" {
 resource "aws_security_group" "db_migrate_server_security_group" {
   name        = "${var.environment}-${var.project_name}-dms-sg"
   description = "SSH from EICE"
-  vpc_id      = 
+  vpc_id      = var.vpc_id
 
   ingress {
     description     = "SSH from EICE"
@@ -122,7 +122,7 @@ resource "aws_security_group" "db_migrate_server_security_group" {
 resource "aws_security_group" "database_security_group" {
   name        = "${var.environment}-${var.project_name}-db-sg"
   description = "MySQL/Aurora from app and migration servers"
-  vpc_id      = 
+  vpc_id      = var.vpc_id
 
   ingress {
     description     = "MySQL/Aurora from app servers"
