@@ -6,6 +6,9 @@ resource "aws_ecs_cluster" "ecs_cluster" {
     name  = "containerInsights"
     value = "disabled"
   }
+  tags = {
+    Name = "${var.environment}-${var.project_name}-cluster"
+  }
 }
 
 # create cloudwatch log group
@@ -14,6 +17,9 @@ resource "aws_cloudwatch_log_group" "log_group" {
 
   lifecycle {
     create_before_destroy = true
+  }
+  tags = {
+    Name = "${var.environment}-${var.project_name}-log-group"
   }
 }
 
@@ -48,13 +54,16 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          "awslogs-group"         = "${aws_cloudwatch_log_group.log_group.name}",
-          "awslogs-region"        = "${var.region}",
+          "awslogs-group"         = aws_cloudwatch_log_group.log_group.name
+          "awslogs-region"        = var.region
           "awslogs-stream-prefix" = "ecs"
         }
       }
     }
   ])
+  tags = {
+    Name = "${var.environment}-${var.project_name}-td"
+  }
 }
 
 # create ecs service
