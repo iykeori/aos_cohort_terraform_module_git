@@ -51,6 +51,46 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
         }
       ]
 
+      # Add environment variables for database connection
+      environment = [
+        {
+          name  = "DB_HOST"
+          value = split(":", var.rds_endpoint)[0]
+        },
+        {
+          name  = "DB_PORT"
+          value = "3306"
+        },
+        {
+          name  = "DB_NAME"
+          value = var.rds_db_name
+        },
+        {
+          name  = "DB_USER"
+          value = var.rds_db_username
+        },
+        {
+          name  = "DB_PASSWORD"
+          value = var.rds_db_password
+        },
+        {
+          name  = "MYSQL_HOST"
+          value = split(":", var.rds_endpoint)[0]
+        },
+        {
+          name  = "MYSQL_DATABASE"
+          value = var.rds_db_name
+        },
+        {
+          name  = "MYSQL_USER"
+          value = var.rds_db_username
+        },
+        {
+          name  = "MYSQL_PASSWORD"
+          value = var.rds_db_password
+        }
+      ]
+
       logConfiguration = {
         logDriver = "awslogs",
         options = {

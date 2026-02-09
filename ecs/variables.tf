@@ -53,3 +53,19 @@ variable "alb_target_group_arn" {
   description = "The ARN of the ALB target group"
   type        = string
 }
+variable "rds_endpoint" {
+  description = "RDS endpoint"
+  type        = string
+}
+variable "rds_db_name" {
+  description = "RDS Database name"
+  type        = string
+}
+variable "rds_db_username" {
+  description = "RDS Database Username"
+  type        = string
+}
+variable "rds_db_password" {
+  description = "RDS Database Password"
+  type        = string
+}
