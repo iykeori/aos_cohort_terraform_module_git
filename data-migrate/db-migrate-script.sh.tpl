@@ -27,4 +27,4 @@ sudo flyway -url=jdbc:mysql://${RDS_ENDPOINT}:3306/${RDS_DB_NAME}?allowPublicKey
   migrate
 
 # Then shutdown after waiting 7 minutes
-# sudo shutdown -h +7
+sudo shutdown -h +7
