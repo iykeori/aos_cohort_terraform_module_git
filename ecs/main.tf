@@ -83,13 +83,13 @@ resource "aws_ecs_service" "ecs_service" {
   propagate_tags          = "SERVICE"
 
   # Wait for service to reach steady state before marking complete
-  # wait_for_steady_state = true
+  wait_for_steady_state = true
 
   # Fall fast if tasks keep crashing
-  # deployment_circuit_breaker {
-  #   enable   = true
-  #   rollback = true
-  # }
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
 
   # Don't wait forever
   timeouts {
